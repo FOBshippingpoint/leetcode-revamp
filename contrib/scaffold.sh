@@ -1,5 +1,24 @@
 #!/bin/sh
 
+script_name=${0##*/}
+script_dir=$(cd "$(dirname "$0")" >/dev/null 2>&1 && pwd -P)
+
+usage() {
+	cat <<USAGE
+Usage: $script_name [-h|--help] [-m|--meta metadata] [-l|--language language]
+
+Create leetcode scaffold for specified language
+
+Available options:
+
+-h, --help          Print this help and exit
+
+
+Description:
+USAGE
+	exit
+}
+
 msg() {
 	IFS=" $IFS"
 	set -- '%s\n' "${*:-}"
@@ -20,6 +39,33 @@ i=0
 human_name=
 directory_name=
 url=
+metadata=
+language=
+
+while :; do
+	case $1 in
+	-h | --help)
+		usage
+		;;
+	-m | --meta)
+		metadata=${2:-}
+		if [ ! "$metadata" ]; then
+			die "--meta requires a value"
+		fi
+		;;
+	-l | --language)
+		language=${2:-}
+		if [ ! "$language" ]; then
+			die "--language requires a value"
+		fi
+		;;
+	-*)
+		die "Unknown option [ $1 ]"
+		;;
+	*) break ;;
+	esac
+	shift
+done
 
 while IFS= read -r line; do
 	i=$((i + 1))
@@ -29,19 +75,34 @@ while IFS= read -r line; do
 	3) url=$line ;;
 	*) break ;;
 	esac
-done
+done <<EOF
+$metadata
+EOF
 
 if [ "$i" != 3 ]; then
-	die "Parameters count not match, expecting 3, got [ $i ]
-Try input:
+	die "Expecting metadata line count to be 3, got [ $i ]
+Try following:
   217. Contains Duplicate
-  217_contains_duplicate
+  0217_contains_duplicate
   https://leetcode.com/problems/contains-duplicate/
 "
 fi
 
-if ! mkdir "problems/$directory_name"; then
-	die "[ problems/$directory_name ] already exists"
+if [ ! "$language" ]; then
+	printf '%s' "Choose language: "
+	read -r language
 fi
 
-printf '%s' "# [$human_name]($url)" >"problems/$directory_name/problem.md"
+cd "$script_dir" || die
+cd .. || die
+mkdir -p "$language" || die
+cd "$language" || die
+mkdir -p "$directory_name" || die
+
+if [ -f "$directory_name/note.md" ]; then
+	die "note.md already exists in [ $directory_name/note.md ]"
+fi
+
+printf '%s' "# [$human_name]($url)" >"$directory_name/note.md"
+
+msg "[ $(readlink -f "$directory_name/note.md") ] scaffold created"

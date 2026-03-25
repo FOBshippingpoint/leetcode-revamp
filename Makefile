@@ -10,4 +10,4 @@ help: ## Show this help
 
 .PHONY: scaffold
 scaffold: ## Create a directory for a problem
-	gcb | dos2unix | contrib/scaffold.sh
+	 contrib/scaffold.sh --meta "$$(copyq read)"
