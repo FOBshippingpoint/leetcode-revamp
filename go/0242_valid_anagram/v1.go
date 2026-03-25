@@ -5,7 +5,7 @@ import (
 	"sort"
 )
 
-func isAnagram(s string, t string) bool {
+func isAnagramV1(s string, t string) bool {
 	sSlice := []rune(s)
 	tSlice := []rune(t)
 
