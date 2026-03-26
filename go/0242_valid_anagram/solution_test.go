@@ -1,4 +1,4 @@
-package leetcode
+package validanagram
 
 import "testing"
 
@@ -18,8 +18,8 @@ func TestIsAnagram(t *testing.T) {
 		name string
 		fn   func(string, string) bool
 	}{
-		{"V1 (Brute Force)", isAnagramV1},
-		{"V2 (Hash Map)", isAnagramV2},
+		{"v1: Sort and compare", isAnagramV1},
+		{"v2: Use fixed size rune array as occurrences map", isAnagramV2},
 	}
 	for _, sol := range solutions {
 		t.Run(sol.name, func(t *testing.T) {
