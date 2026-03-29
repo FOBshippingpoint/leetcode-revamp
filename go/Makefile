@@ -11,3 +11,7 @@ help: ## Show this help
 .PHONY: fmt
 fmt: ## gofmt
 	 gofmt -s -w .
+
+.PHONY: test
+test: ## test
+	 go test ./...

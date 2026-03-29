@@ -36,9 +36,10 @@ script_dir=$(dirname "$0")
 cd "$script_dir/.." || exit 1
 
 i=0
-human_name=
-directory_name=
+
+title=
 url=
+
 metadata=
 language=
 
@@ -67,23 +68,14 @@ while :; do
 	shift
 done
 
-while IFS= read -r line; do
-	i=$((i + 1))
-	case $i in
-	1) human_name=$line ;;
-	2) directory_name=$line ;;
-	3) url=$line ;;
-	*) break ;;
-	esac
-done <<EOF
+IFS= read -r title url _nope <<EOF
 $metadata
 EOF
 
-if [ "$i" != 3 ]; then
-	die "Expecting metadata line count to be 3, got [ $i ]
+if [ "${nope:-}" ]; then
+	die "Expecting metadata line count to be 2
 Try following:
   217. Contains Duplicate
-  0217_contains_duplicate
   https://leetcode.com/problems/contains-duplicate/
 "
 fi
@@ -93,16 +85,14 @@ if [ ! "$language" ]; then
 	read -r language
 fi
 
-cd "$script_dir" || die
-cd .. || die
-mkdir -p "$language" || die
-cd "$language" || die
-mkdir -p "$directory_name" || die
-
-if [ -f "$directory_name/note.md" ]; then
-	die "note.md already exists in [ $directory_name/note.md ]"
-fi
-
-printf '%s' "# [$human_name]($url)" >"$directory_name/note.md"
-
-msg "[ $(readlink -f "$directory_name/note.md") ] scaffold created"
+case $language in
+  go)
+    go run scaffold.go -- "$url" -title "$title" -url "$url"
+  ;;
+  java)
+    java Scaffold.java
+  ;;
+  *)
+    die "Language [ $language ] is not supported"
+  ;;
+esac

@@ -1,4 +1,4 @@
-package containsduplicate
+package s0217containsduplicate
 
 func containsDuplicateV1(nums []int) bool {
 	m := map[int]bool{}
