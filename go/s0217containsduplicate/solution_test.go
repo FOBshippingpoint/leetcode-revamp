@@ -1,4 +1,4 @@
-package s0217containsduplicate 
+package s0217containsduplicate
 
 import "testing"
 

@@ -1,4 +1,4 @@
-package s0242validanagram 
+package s0242validanagram
 
 import "testing"
 

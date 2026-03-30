@@ -29,9 +29,8 @@ func TestTwoSum(t *testing.T) {
 		t.Run(sol.name, func(t *testing.T) {
 			for _, d := range data {
 				got := sol.fn(d.nums, d.target)
-				// Slices must be compared using DeepEqual in Go
 				if !reflect.DeepEqual(got, d.want) {
-					t.Errorf(`nums = %v; target = %d; want %v, got %v`, 
+					t.Errorf(`nums = %v; target = %d; want %v, got %v`,
 						d.nums, d.target, d.want, got)
 				}
 			}

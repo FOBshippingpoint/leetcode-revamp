@@ -1,38 +1,64 @@
-package s0001twosum
+package s0049groupanagrams
 
 import (
 	"reflect"
+	"sort"
 	"testing"
 )
 
 type Data struct {
-	nums   []int
-	target int
-	want   []int
+	strs []string
+	want [][]string
 }
 
 var data = []Data{
-	{nums: []int{2, 7, 11, 15}, target: 9, want: []int{0, 1}},
-	{nums: []int{3, 2, 4}, target: 6, want: []int{1, 2}},
-	{nums: []int{3, 3}, target: 6, want: []int{0, 1}},
+	{
+		strs: []string{"eat","tea","tan","ate","nat","bat"},
+		want: [][]string{{"bat"}, {"nat", "tan"}, {"ate", "eat", "tea"}},
+	},
+	{
+		strs: []string{""},
+		want: [][]string{{""}},
+	},
+	{
+		strs: []string{"a"},
+		want: [][]string{{"a"}},
+	},
 }
 
-func TestTwoSum(t *testing.T) {
+func normalize(input [][]string) {
+	for _, group := range input {
+		sort.Strings(group)
+	}
+	sort.Slice(input, func(i, j int) bool {
+		if len(input[i]) == 0 {
+			return true
+		}
+		if len(input[j]) == 0 {
+			return false
+		}
+		return input[i][0] < input[j][0]
+	})
+}
+
+func TestGroupAnagrams(t *testing.T) {
 	solutions := []struct {
 		name string
-		fn   func([]int, int) []int
+		fn   func(strs []string) [][]string
 	}{
-		{"v1: Brute force or Hash map", twoSumV1},
+		{"v1: map with array occurrences key and group strings value", groupAnagramsV1},
 	}
 
 	for _, sol := range solutions {
 		t.Run(sol.name, func(t *testing.T) {
 			for _, d := range data {
-				got := sol.fn(d.nums, d.target)
-				// Slices must be compared using DeepEqual in Go
+				got := sol.fn(d.strs)
+
+				normalize(got)
+				normalize(d.want)
+
 				if !reflect.DeepEqual(got, d.want) {
-					t.Errorf(`nums = %v; target = %d; want %v, got %v`, 
-						d.nums, d.target, d.want, got)
+					t.Errorf(`strs = %v; want %v, got %v`, d.strs, d.want, got)
 				}
 			}
 		})
