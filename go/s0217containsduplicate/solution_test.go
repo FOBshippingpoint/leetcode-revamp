@@ -13,7 +13,7 @@ var data = []Data{
 	{[]int{1, 1, 1, 3, 3, 4, 3, 2, 4, 2}, true},
 }
 
-func TestIsAnagram(t *testing.T) {
+func TestContainsDuplicate(t *testing.T) {
 	solutions := []struct {
 		name string
 		fn   func([]int) bool

@@ -19,6 +19,13 @@ USAGE
 	exit
 }
 
+# https://github.com/dylanaraps/pure-sh-bible?tab=readme-ov-file#trim-leading-and-trailing-white-space-from-string
+trim() {
+    trim=${1#${1%%[![:space:]]*}}
+    trim=${trim%${trim##*[![:space:]]}}
+    printf '%s\n' "$trim"
+}
+
 msg() {
 	IFS=" $IFS"
 	set -- '%s\n' "${*:-}"
@@ -68,11 +75,19 @@ while :; do
 	shift
 done
 
-IFS= read -r title url _nope <<EOF
+i=0
+while IFS= read -r line; do
+  i=$((i+1))
+  case $i in
+    1) title=$(trim "$line") ;;
+    2) url=$(trim "$line") ;;
+    *) die "Invalid input, expecting EOF" ;;
+  esac
+done <<EOF
 $metadata
 EOF
 
-if [ "${nope:-}" ]; then
+if [ "${_nope:-}" ]; then
 	die "Expecting metadata line count to be 2
 Try following:
   217. Contains Duplicate
@@ -87,7 +102,7 @@ fi
 
 case $language in
   go)
-    go run scaffold.go -- "$url" -title "$title" -url "$url"
+    (set -x; go run contrib/scaffold.go -title "$title" -url "$url")
   ;;
   java)
     java Scaffold.java

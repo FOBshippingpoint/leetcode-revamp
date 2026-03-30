@@ -13,7 +13,7 @@ type Data struct {
 
 var data = []Data{
 	{
-		strs: []string{"eat","tea","tan","ate","nat","bat"},
+		strs: []string{"eat", "tea", "tan", "ate", "nat", "bat"},
 		want: [][]string{{"bat"}, {"nat", "tan"}, {"ate", "eat", "tea"}},
 	},
 	{
