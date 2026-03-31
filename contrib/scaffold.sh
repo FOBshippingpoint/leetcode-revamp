@@ -84,7 +84,7 @@ while IFS= read -r line; do
 	*) die "Invalid input, expecting EOF" ;;
 	esac
 done <<EOF
-$metadata
+$(trim "$metadata")
 EOF
 
 if [ "${_nope:-}" ]; then

@@ -46,8 +46,8 @@ void main(String[] args) throws Exception {
   }
 
   var pkgName = getPackageName(title);
-  var srcPath = scriptPath.getParent().getParent().resolve("java/leetcode-revamp/src/main/java/com/github/fobshippingpoint").resolve(pkgName);
-  var testPath = scriptPath.getParent().getParent().resolve("java/leetcode-revamp/src/test/java/com/github/fobshippingpoint").resolve(pkgName);
+  var srcPath = scriptPath.getParent().getParent().resolve("java/src/main/java/com/github/fobshippingpoint").resolve(pkgName);
+  var testPath = scriptPath.getParent().getParent().resolve("java/src/test/java/com/github/fobshippingpoint").resolve(pkgName);
   Files.createDirectories(srcPath);
   Files.createDirectories(testPath);
 
