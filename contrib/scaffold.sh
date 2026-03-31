@@ -21,9 +21,9 @@ USAGE
 
 # https://github.com/dylanaraps/pure-sh-bible?tab=readme-ov-file#trim-leading-and-trailing-white-space-from-string
 trim() {
-    trim=${1#${1%%[![:space:]]*}}
-    trim=${trim%${trim##*[![:space:]]}}
-    printf '%s\n' "$trim"
+	trim=${1#${1%%[![:space:]]*}}
+	trim=${trim%${trim##*[![:space:]]}}
+	printf '%s\n' "$trim"
 }
 
 msg() {
@@ -77,12 +77,12 @@ done
 
 i=0
 while IFS= read -r line; do
-  i=$((i+1))
-  case $i in
-    1) title=$(trim "$line") ;;
-    2) url=$(trim "$line") ;;
-    *) die "Invalid input, expecting EOF" ;;
-  esac
+	i=$((i + 1))
+	case $i in
+	1) title=$(trim "$line") ;;
+	2) url=$(trim "$line") ;;
+	*) die "Invalid input, expecting EOF" ;;
+	esac
 done <<EOF
 $metadata
 EOF
@@ -101,13 +101,19 @@ if [ ! "$language" ]; then
 fi
 
 case $language in
-  go)
-    (set -x; go run contrib/scaffold.go -title "$title" -url "$url")
-  ;;
-  java)
-    java Scaffold.java
-  ;;
-  *)
-    die "Language [ $language ] is not supported"
-  ;;
+go)
+	(
+		set -x
+		go run contrib/scaffold.go -title "$title" -url "$url"
+	)
+	;;
+java)
+	(
+		set -x
+		java --enable-preview --source 25 contrib/Scaffold.java --title "$title" --url "$url"
+	)
+	;;
+*)
+	die "Language [ $language ] is not supported"
+	;;
 esac
