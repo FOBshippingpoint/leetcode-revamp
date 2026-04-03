@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name        Copy scaffold - leetcode.com
+// @name        Copy create scaffold command - leetcode.com
 // @namespace   Violentmonkey Scripts
 // @match       https://leetcode.com/problems/*
 // @grant       none
@@ -19,13 +19,16 @@ function getOrThrow(selector) {
 window.addEventListener("keydown", (e) => {
   if (e.key === 'F4') {
     const titleEl = getOrThrow('.cursor-text');
-    const humanName = titleEl.textContent;
+    const title = titleEl.textContent;
     const url = titleEl.href;
-    const toCopy = [humanName, url].join("\n");
+    const toCopy = `contrib/scaffold.sh --title '${shellEscape(title)}' --url '${url}'`
 
     navigator.clipboard.writeText(toCopy);
     alert(toCopy);
   }
 });
 
+function shellEscape(string) {
+  return string.replaceAll("'", "'\\''");
+}
 

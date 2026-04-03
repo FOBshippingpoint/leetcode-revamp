@@ -10,4 +10,4 @@ help: ## Show this help
 
 .PHONY: scaffold
 scaffold: ## Create a directory for a problem
-	 contrib/scaffold.sh --meta "$$(copyq read 2>/dev/null || gcb)"
+	 contrib/scaffold.sh

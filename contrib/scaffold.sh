@@ -5,16 +5,24 @@ script_dir=$(cd "$(dirname "$0")" >/dev/null 2>&1 && pwd -P)
 
 usage() {
 	cat <<USAGE
-Usage: $script_name [-h|--help] [-m|--meta metadata] [-l|--language language]
+Usage:
+
+$script_name -h|--help
+$script_name (-u|--url) URL (-t|--title) TITLE [-l|--language LANGUAGE]
+
+Description:
 
 Create leetcode scaffold for specified language
 
 Available options:
 
 -h, --help          Print this help and exit
-
-
-Description:
+-t, --title         Title of a LeetCode problem (e.g., '1. Two Sum')
+-u, --url           URL of the LeetCode problem (e.g., 'https://leetcode.com/problems/two-sum/')
+-l, --language      Language to scaffold:
+                      go
+                      java
+                      ruby
 USAGE
 	exit
 }
@@ -39,15 +47,11 @@ die() {
 	exit "${2:-1}"
 }
 
-script_dir=$(dirname "$0")
 cd "$script_dir/.." || exit 1
-
-i=0
 
 title=
 url=
 
-metadata=
 language=
 
 while :; do
@@ -55,17 +59,26 @@ while :; do
 	-h | --help)
 		usage
 		;;
-	-m | --meta)
-		metadata=${2:-}
-		if [ ! "$metadata" ]; then
-			die "--meta requires a value"
+	-t | --title)
+		title=${2:-}
+		if [ ! "$title" ]; then
+			die "--title requires a value"
 		fi
+    shift
+		;;
+	-u | --url)
+		url=${2:-}
+		if [ ! "$url" ]; then
+			die "--url requires a value"
+		fi
+    shift
 		;;
 	-l | --language)
 		language=${2:-}
 		if [ ! "$language" ]; then
 			die "--language requires a value"
 		fi
+    shift
 		;;
 	-*)
 		die "Unknown option [ $1 ]"
@@ -75,24 +88,14 @@ while :; do
 	shift
 done
 
-i=0
-while IFS= read -r line; do
-	i=$((i + 1))
-	case $i in
-	1) title=$(trim "$line") ;;
-	2) url=$(trim "$line") ;;
-	*) die "Invalid input, expecting EOF" ;;
-	esac
-done <<EOF
-$(trim "$metadata")
-EOF
+if [ ! "$title" ]; then
+	printf '%s' "LeetCode problem title: "
+	read -r title
+fi
 
-if [ "${_nope:-}" ]; then
-	die "Expecting metadata line count to be 2
-Try following:
-  217. Contains Duplicate
-  https://leetcode.com/problems/contains-duplicate/
-"
+if [ ! "$url" ]; then
+	printf '%s' "LeetCode problem URL: "
+	read -r url
 fi
 
 if [ ! "$language" ]; then
