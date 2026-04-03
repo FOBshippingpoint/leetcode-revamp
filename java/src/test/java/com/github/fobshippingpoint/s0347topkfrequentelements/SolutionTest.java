@@ -4,78 +4,37 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.Arrays;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 class SolutionTest {
     public static Stream<Arguments> provider() {
         return Stream.of(
-                // Arguments.of("Should be duplicates since the element 1 occurs at the indices 0 and 3.",
-                //         new int[]{1, 2, 3, 1}, true),
-                // Arguments.of("Should not be duplicates since All elements are distinct.",
-                //         new int[]{1, 2, 3, 4}, false),
-                // Arguments.of("Should be duplicates since The element 1 occurs at the indices 0 and 1.",
-                //         new int[]{1, 1, 1, 3, 3, 4, 3, 2, 4, 2}, true)
+                Arguments.of("Example 1", new int[]{1, 1, 1, 2, 2, 3}, 2, new int[]{1, 2}),
+                Arguments.of("Example 2", new int[]{1}, 1, new int[]{1}),
+                Arguments.of("Example 3", new int[]{1, 2, 1, 2, 1, 2, 3, 1, 3, 2}, 2, new int[]{1, 2})
         );
     }
 
-    @ParameterizedTest
+    @ParameterizedTest(name = "{0}")
     @MethodSource("provider")
-    void test__solution__() {
-
+    void testTopKFrequentV1(String message, int[] nums, int k, int[] expected) {
+        var solution = new Solution();
+        var result = solution.topKFrequentV1(nums, k);
+        Arrays.sort(result);
+        Arrays.sort(expected);
+        assertArrayEquals(expected, result);
     }
 
+    @ParameterizedTest(name = "{0}")
+    @MethodSource("provider")
+    void testTopKFrequentV2(String message, int[] nums, int k, int[] expected) {
+        var solution = new Solution();
+        var result = solution.topKFrequentV2(nums, k);
+        Arrays.sort(result);
+        Arrays.sort(expected);
+        assertArrayEquals(expected, result);
+    }
 }
-// 
-// Example 1:
-//
-// Input: nums = [1,1,1,2,2,3], k = 2
-//
-// Output: [1,2]
-//
-// Example 2:
-//
-// Input: nums = [1], k = 1
-//
-// Output: [1]
-//
-// Example 3:
-//
-// Input: nums = [1,2,1,2,1,2,3,1,3,2], k = 2
-//
-// Output: [1,2]
-// import java.util.HashMap;
-// import java.util.List;
-// import java.util.LinkedList;
-//
-// class Solution {
-//     public int[] topKFrequent(int[] nums, int k) {
-//         var freqCount = new HashMap<Integer, Integer>();
-//
-//         for (var num : nums) {
-//             freqCount.put(num, freqCount.getOrDefault(num, -1) + 1);
-//         }
-//
-//         var bucket = new List[nums.length];
-//         for (var num : freqCount.keySet()) {
-//             var freq = freqCount.get(num);
-//
-//             if (bucket[freq] == null) {
-//                 bucket[freq] = new LinkedList<Integer>();
-//             }
-//             bucket[freq].add(num);
-//         }
-//
-//         var result = new LinkedList<Integer>();
-//         var j = 0;
-//         for (var i = bucket.length - 1; i >= 0 && k > 0; i--) {
-//             if (bucket[i] != null) {
-//                 result.addAll(bucket[i]);
-//                 k -= bucket[i].size();
-//             }
-//         }
-//
-//         return result.stream().mapToInt(Integer::intValue).toArray();
-//     }
-// }
