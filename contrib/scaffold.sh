@@ -113,6 +113,12 @@ java)
 		java --enable-preview --source 25 contrib/Scaffold.java --title "$title" --url "$url"
 	)
 	;;
+ruby)
+	(
+		set -x
+		ruby contrib/scaffold.rb --title "$title" --url "$url"
+	)
+	;;
 *)
 	die "Language [ $language ] is not supported"
 	;;

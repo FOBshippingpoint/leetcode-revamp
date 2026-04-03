@@ -20,7 +20,7 @@ func productExceptSelfV1(nums []int) []int {
 	return result
 }
 
-/// v2 uses the normal backward for loop instead of slices.Backward.
+/// v2 uses the normal backward for loop instead of slices.Backward
 /// The speed is slightly slower but use less memory.
 func productExceptSelfV2(nums []int) []int {
 	result := make([]int, len(nums))
