@@ -21,7 +21,10 @@ window.addEventListener("keydown", (e) => {
     const titleEl = getOrThrow('.cursor-text');
     const title = titleEl.textContent;
     const url = titleEl.href;
-    const toCopy = `contrib/scaffold.sh --title '${shellEscape(title)}' --url '${url}'`
+    const toCopy = `(
+cd "$(git rev-parse --show-toplevel)" &&
+contrib/scaffold.sh --title '${shellEscape(title)}' --url '${url}'
+)`
 
     navigator.clipboard.writeText(toCopy);
     alert(toCopy);
