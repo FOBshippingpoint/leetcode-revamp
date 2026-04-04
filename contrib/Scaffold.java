@@ -106,7 +106,7 @@ void main(String[] args) throws Exception {
 String getPackageName(String title) {
   var dotIdx = title.indexOf('.');
   var num = String.format("%04d", Integer.parseInt(title.substring(0, dotIdx).trim()));
-  var titleNoNum = title.substring(dotIdx + 1).replace(" ", "").toLowerCase();
+  var titleNoNum = title.substring(dotIdx + 1).replaceAll("[^\\p{Alnum}]", "").toLowerCase();
   return "s" + num + titleNoNum;
 }
 

@@ -7,6 +7,7 @@ import (
 	"net/url"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strings"
 )
 
@@ -63,6 +64,7 @@ func craftNoteMd(title string, urlStr string) string {
 func craftPkgName(title string) string {
 	num, titleNoNum, _ := strings.Cut(title, ".")
 	num = fmt.Sprintf("%04s", num)
-	titleNoNumNormalized := strings.ToLower(strings.ReplaceAll(strings.TrimSpace(titleNoNum), " ", ""))
+	re := regexp.MustCompile("[^[:alnum:]]")
+	titleNoNumNormalized := strings.ToLower(re.ReplaceAllString(titleNoNum, ""))
 	return "s" + num + titleNoNumNormalized
 }
