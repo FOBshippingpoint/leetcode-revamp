@@ -112,7 +112,7 @@ String getPackageName(String title) {
 
 void usage() {
   IO.println("""
-  Usage: java Scaffold.java --title title --url url 
+  Usage: java Scaffold.java --title title --url url
 
   Create scaffold for LeetCode problem
 

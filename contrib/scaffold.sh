@@ -122,6 +122,12 @@ ruby)
 		ruby contrib/scaffold.rb --title "$title" --url "$url"
 	)
 	;;
+rust)
+	(
+		set -x
+		contrib/scaffold.rs --title "$title" --url "$url"
+	)
+	;;
 *)
 	die "Language [ $language ] is not supported"
 	;;
