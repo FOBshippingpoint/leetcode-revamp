@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-/// To make the board looks good
+// / To make the board looks good
 func formatBoard(board [][]byte) string {
 	var sb strings.Builder
 	for _, row := range board {

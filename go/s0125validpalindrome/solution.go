@@ -37,7 +37,7 @@ func isPalindromeV2(s string) bool {
 	re := regexp.MustCompile("[^[:alnum:]]")
 	s = re.ReplaceAllString(strings.ToLower(s), "")
 	for i, r := range s {
-		if byte(r) != s[len(s) - i - 1] {
+		if byte(r) != s[len(s)-i-1] {
 			return false
 		}
 	}
