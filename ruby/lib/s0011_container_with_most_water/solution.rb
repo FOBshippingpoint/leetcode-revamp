@@ -8,12 +8,12 @@ def max_area(height)
   biggest = 0
 
   while head < tail
-    headH = height[head]
-    tailH = height[tail]
-    area = (tail - head) * [headH, tailH].min
+    head_h = height[head]
+    tail_h = height[tail]
+    area = (tail - head) * [head_h, tail_h].min
     biggest = [biggest, area].max
 
-    if headH <= tailH
+    if head_h <= tail_h
       head += 1
     else
       tail -= 1

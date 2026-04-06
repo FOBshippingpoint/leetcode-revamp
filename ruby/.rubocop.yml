@@ -9,3 +9,22 @@
 #
 # See https://docs.rubocop.org/rubocop/configuration
 plugins: rubocop-rake
+
+Metrics/MethodParameterName:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Naming/PredicatePrefix:
+  Enabled: false
+
