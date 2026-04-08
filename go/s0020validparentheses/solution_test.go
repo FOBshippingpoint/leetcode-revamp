@@ -23,6 +23,7 @@ func TestIsValid(t *testing.T) {
 		fn   func(string) bool
 	}{
 		{"v1: Stack", isValidV1},
+		{"v2: Stack (tweak if condition to avoid unnecessary pop)", isValidV2},
 	}
 
 	for _, sol := range solutions {

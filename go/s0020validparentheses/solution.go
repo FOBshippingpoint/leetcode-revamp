@@ -25,3 +25,25 @@ func isValidV1(s string) bool {
 	}
 	return len(stack) == 0
 }
+
+func isValidV2(s string) bool {
+	stack := []rune{}
+	brackets := map[rune]rune{
+		'(': ')',
+		'{': '}',
+		'[': ']',
+	}
+
+	for _, r := range s {
+		switch r {
+		case '(', '{', '[':
+			stack = append(stack, r)
+		case ')', '}', ']':
+			if len(stack) == 0 || r != brackets[stack[len(stack)-1]] {
+				return false
+			}
+			stack = stack[:len(stack)-1]
+		}
+	}
+	return len(stack) == 0
+}
