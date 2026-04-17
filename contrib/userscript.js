@@ -1,11 +1,12 @@
 // ==UserScript==
-// @name        Copy create scaffold command - leetcode.com
-// @namespace   Violentmonkey Scripts
-// @match       https://leetcode.com/problems/*
-// @grant       none
-// @version     1.0
-// @author      -
-// @description 2026/3/22下午11:03:27
+// @name          Copy create scaffold command - leetcode.com
+// @version       1.1
+// @namespace     Violentmonkey Scripts
+// @match         https://leetcode.com/problems/*
+// @downloadURL   https://github.com/FOBshippingpoint/leetcode-revamp/raw/refs/heads/main/contrib/userscript.js
+// @grant         none
+// @author        CC Lan
+// @description   Copy shell command for LeetCode local solution scaffolding.
 // ==/UserScript==
 
 
