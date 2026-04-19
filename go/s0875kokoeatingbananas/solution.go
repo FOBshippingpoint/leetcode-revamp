@@ -23,7 +23,7 @@ func minEatingSpeedV1(piles []int, h int) int {
 	return low
 }
 
-/// Actually not faster
+// / Actually not faster
 func minEatingSpeedV2(piles []int, h int) int {
 	low := 1
 	high := slices.Max(piles)
