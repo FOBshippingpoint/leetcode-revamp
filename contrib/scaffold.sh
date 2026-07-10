@@ -23,6 +23,7 @@ Available options:
                       go
                       java
                       ruby
+                      rust
 USAGE
 	exit
 }
