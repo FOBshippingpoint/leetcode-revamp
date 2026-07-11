@@ -1,8 +1,8 @@
 package com.github.fobshippingpoint.s0347topkfrequentelements;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.LinkedList;
+import java.util.List;
 
 class Solution {
 

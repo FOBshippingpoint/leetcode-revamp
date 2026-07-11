@@ -23,7 +23,7 @@ public class Solution {
             }
         }
 
-        for (var i = 0 ; i < nums.length; i++) {
+        for (var i = 0; i < nums.length; i++) {
             if (i == 0) {
                 result[i] = postfix[i + 1];
             } else if (i == nums.length - 1) {
