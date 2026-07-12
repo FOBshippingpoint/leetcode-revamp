@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name          Copy create scaffold command - leetcode.com
-// @version       1.3
+// @version       1.4
 // @namespace     Violentmonkey Scripts
 // @match         https://leetcode.com/problems/*
 // @downloadURL   https://github.com/FOBshippingpoint/leetcode-revamp/raw/refs/heads/main/contrib/userscript.js
@@ -11,7 +11,7 @@
 
 
 // Usage:
-//    F2: copy title
+//    F2: search title on YouTube
 //    F4: copy scaffold generation script
 //    F7: copy whole description
 
@@ -47,10 +47,12 @@ window.addEventListener("keydown", (e) => {
 
 window.addEventListener("keydown", (e) => {
   if (e.key === 'F2') {
+    e.preventDefault();
     const titleEl = getOrThrow('.cursor-text');
-    const toCopy = titleEl.textContent;
-    navigator.clipboard.writeText(toCopy);
-    alert(toCopy);
+    const title = titleEl.textContent;
+    const url = new URL("https://www.youtube.com/results");
+    url.searchParams.set("search_query", title);
+    window.open(url, "_blank", "noopener");
   }
 });
 
