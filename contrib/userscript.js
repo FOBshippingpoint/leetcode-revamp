@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name          Copy create scaffold command - leetcode.com
-// @version       1.2.1
+// @version       1.3
 // @namespace     Violentmonkey Scripts
 // @match         https://leetcode.com/problems/*
 // @downloadURL   https://github.com/FOBshippingpoint/leetcode-revamp/raw/refs/heads/main/contrib/userscript.js
@@ -9,6 +9,11 @@
 // @description   Copy shell command for LeetCode local solution scaffolding.
 // ==/UserScript==
 
+
+// Usage:
+//    F2: copy title
+//    F4: copy scaffold generation script
+//    F7: copy whole description
 
 function getOrThrow(selector) {
   const el = document.querySelector(selector);
@@ -35,6 +40,15 @@ window.addEventListener("keydown", (e) => {
   if (e.key === 'F7') {
     const description = getOrThrow('.cursor-text').closest(".w-full");
     const toCopy = description.textContent;
+    navigator.clipboard.writeText(toCopy);
+    alert(toCopy);
+  }
+});
+
+window.addEventListener("keydown", (e) => {
+  if (e.key === 'F2') {
+    const titleEl = getOrThrow('.cursor-text');
+    const toCopy = titleEl.textContent;
     navigator.clipboard.writeText(toCopy);
     alert(toCopy);
   }
