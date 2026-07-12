@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name          Copy create scaffold command - leetcode.com
-// @version       1.1
+// @version       1.2.1
 // @namespace     Violentmonkey Scripts
 // @match         https://leetcode.com/problems/*
 // @downloadURL   https://github.com/FOBshippingpoint/leetcode-revamp/raw/refs/heads/main/contrib/userscript.js
@@ -15,7 +15,6 @@ function getOrThrow(selector) {
   if (!el) throw Error(`[ ${selector} ] not found`);
   return el;
 }
-
 
 window.addEventListener("keydown", (e) => {
   if (e.key === 'F4') {
@@ -32,7 +31,15 @@ contrib/scaffold.sh --title '${shellEscape(title)}' --url '${url}'
   }
 });
 
+window.addEventListener("keydown", (e) => {
+  if (e.key === 'F7') {
+    const description = getOrThrow('.cursor-text').closest(".w-full");
+    const toCopy = description.textContent;
+    navigator.clipboard.writeText(toCopy);
+    alert(toCopy);
+  }
+});
+
 function shellEscape(string) {
   return string.replaceAll("'", "'\\''");
 }
-
