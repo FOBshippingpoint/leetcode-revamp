@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name          Copy create scaffold command - leetcode.com
-// @version       1.5
+// @version       1.6
 // @namespace     Violentmonkey Scripts
 // @match         https://leetcode.com/problems/*
 // @downloadURL   https://github.com/FOBshippingpoint/leetcode-revamp/raw/refs/heads/main/contrib/userscript.js
@@ -39,7 +39,7 @@ contrib/scaffold.sh --title '${shellEscape(title)}' --url '${url}'
 window.addEventListener("keydown", (e) => {
   if (e.key === 'F7') {
     const titleEl = getOrThrow('.cursor-text');
-    const descriptionEl = titleEl.nextElementSibling.nextElementSibling;
+    const descriptionEl = titleEl.parentElement.parentElement.parentElement.nextElementSibling.nextElementSibling;
     const toCopy = titleEl.textContent + "\n" + descriptionEl.textContent;
     navigator.clipboard.writeText(toCopy);
     alert(toCopy);
