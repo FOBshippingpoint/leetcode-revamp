@@ -14,7 +14,9 @@ class SolutionTest {
                 Arguments.of("Should return 5 for k = 2",
                         new int[]{3, 2, 1, 5, 6, 4}, 2, 5),
                 Arguments.of("Should return 4 for k = 4",
-                        new int[]{3, 2, 3, 1, 2, 4, 5, 5, 6}, 4, 4)
+                        new int[]{3, 2, 3, 1, 2, 4, 5, 5, 6}, 4, 4),
+                Arguments.of("Should return the only element when the array has length one",
+                        new int[]{1}, 1, 1)
         );
     }
 
